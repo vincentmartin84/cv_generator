@@ -1,4 +1,8 @@
 import re
+from itertools import count
+
+from functions import valided_names, valided_email, valided_date, compare_dates
+
 
 #contact_details
 def contact_details():
@@ -6,7 +10,7 @@ def contact_details():
     #first_name
     while True:
         first_name=input("Saisir votre prénom :").strip()
-        if not first_name or not first_name.isalpha():
+        if not first_name or not valided_names(first_name):
             print("Saisie incorrecte!")
         else:
             break
@@ -14,7 +18,7 @@ def contact_details():
     #last_name
     while True:
         last_name= input("Saisir votre nom de famille : ").strip()
-        if not last_name or not last_name.isalpha():
+        if not last_name or not valided_names(last_name):
              print("Saisie incorrecte!")
         else:
             break
@@ -28,11 +32,9 @@ def contact_details():
             break
 
     #email
-    regex_email = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-
     while True:
         email = input("Saisir votre email :").strip()
-        if not email or not re.match(regex_email, email):
+        if not email or not valided_email(email):
             print("Saisie incorrecte!")
         else:
             break
@@ -99,22 +101,22 @@ def trainings():
     while True:
         #training's date start
         while True:
-            trn_start= int(input("Saisir une année de début de formation : "))
-            if  not trn_start:
+            trn_start= input("Saisir la date  de début de formation : ")
+            if  not trn_start or not valided_date(trn_start):
                 print("Saisie incorrecte!")
             else:
                 break
 
         #training's date end
         while True:
-            trn_end = int(input("Saisir une année de fin de formation : "))
-            if not trn_end:
+            trn_end = input("Saisir la date de fin de formation : ")
+            if not trn_end or not valided_date(trn_end):
                 print("Saisie incorrecte!")
             else:
                 break
         #error handling for dates
-        if not trn_start < trn_end :
-            print("Saisie incorrecte, la date de fin de formation ne peut pas être supérieur à la date de début! ")
+        if not compare_dates(trn_start, trn_end):
+            print("Saisie incorrecte, la date de fin de formation ne peut pas être inférieur à la date de début! ")
         else:
             break
 
@@ -130,44 +132,91 @@ def trainings():
 def collect_trainings():
     trainings_list = []
     count = 0
-    while count < 3 :
+
+
+    while count < 3:
         print(f"Formation {count+1}")
-        new_training= trainings()
+        new_training = trainings()
         trainings_list.append(new_training)
 
-        #ask at the user a new training
-        more = input("Voulez vous entrer une autre formation?  oui/non").strip().lower()
-        if more == "oui":
-            continue
-        elif more == 'non':
-            break
+        while True:
+            more = input("Voulez-vous entrer une autre formation ? oui / non : ").strip().lower()
+            if more == "oui":
+                count += 1
+                break  # Sort de la boucle pour ajouter une nouvelle formation
+            elif more == "non":
+                return trainings_list  # Retourne la liste des formations et arrête la collecte
+            else:
+                print("Saisie incorrecte ! Tapez : oui ou non : ")
+
+    return trainings_list  # Retourne la liste si on atteint la limite de 3 formations
+
+
+
+#professional experiences
+def professional_experiences():
+
+    # title
+    while True:
+        exp_title = input("Saisir le titre de l'expérience professionnelle : ").strip()
+        if not exp_title:
+            print("Saisie incorrecte!")
         else:
-            print("saisie incorrecte! taper: oui ou non : ")
+            break
 
-        count+= 1
+    # company
+    while True:
+        exp_company = input("Saisir l'entreprise : ").strip()
+        if not exp_company:
+            print("Saisie incorrecte!")
+        else:
+            break
 
-    return  trainings_list
+    # dates part
+    date_regex = r'^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$'
+    while True:
 
-#display datas
-#contact= contact_details()
-#title_cv = cv_title()
-""" 
-print(contact["first_name"])
-print(contact["last_name"])
-print(contact["phone"])
-print(contact["email"])
-print(contact["residence"])
-print(contact["mention"])
-"""
+        # date start
+        while True:
+            try:
+                exp_start = int(input("Saisir le début de l'expérience professionnelle : "))
+                if exp_start or re.match(date_regex, exp_start):
+                    print("Saisie incorrecte!")
+                else:
+                    break
+            except ValueError:
+                print("Saisie incorrecte! Veuillez entrer une année valide.")
 
-training_datas = collect_trainings()
+        # date end
+        while True:
+            try:
+                exp_end = int(input("Saisir la fin de l'expérience professionnelle : "))
+                if exp_end <= 0:
+                    print("Saisie incorrecte, la date doit être un nombre positif!")
+                else:
+                    break
+            except ValueError:
+                print("Saisie incorrecte! Veuillez entrer une année valide.")
 
+        # error handling dates
+        if not exp_start < exp_end:
+            print("Saisie incorrecte, la date de fin d'expérience professionnelle ne peut pas être inférieur à la date de début!")
+        else:
+            break
 
+    # summary
+    while True:
+        exp_summary = input("Saisir un résumé de votre expérience professionnelle : ").strip()
+        if not exp_summary:
+            print("Saisie incorrecte!")
+        else:
+            break
 
-# Display collected trainings
-for i, training in enumerate(training_datas, 1):
-    print(f"Formation {i}")
-    print(f"Titre : {training['title']}")
-    print(f"École : {training['school']}")
-    print(f"Année de début : {training['date_start']}")
-    print(f"Année de fin : {training['date_end']}")
+    return {
+        "title": exp_title,
+        "company": exp_company,
+        "date_start": exp_start,
+        "date_end": exp_end,
+        "summary": exp_summary
+    }
+
