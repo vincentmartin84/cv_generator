@@ -126,17 +126,27 @@ def trainings():
     }
 
 
+#collect_trainings
+def collect_trainings():
+    trainings_list = []
+    count = 0
+    while count < 3 :
+        print(f"Formation {count+1}")
+        new_training= trainings()
+        trainings_list.append(new_training)
 
+        #ask at the user a new training
+        more = input("Voulez vous entrer une autre formation?  oui/non").strip().lower()
+        if more != "oui":
+            break
 
+        count+= 1
 
-
+    return  trainings_list
 
 #display datas
 #contact= contact_details()
 #title_cv = cv_title()
-training = trainings()
-
-
 """ 
 print(contact["first_name"])
 print(contact["last_name"])
@@ -146,8 +156,14 @@ print(contact["residence"])
 print(contact["mention"])
 """
 
+training_datas = collect_trainings()
 
-print(training["title"])
-print(training["school"])
-print(training["date_start"])
-print(training["date_end"])
+
+
+# Display collected trainings
+for i, training in enumerate(training_datas, 1):
+    print(f"Formation {i}")
+    print(f"Titre : {training['title']}")
+    print(f"École : {training['school']}")
+    print(f"Année de début : {training['date_start']}")
+    print(f"Année de fin : {training['date_end']}")
