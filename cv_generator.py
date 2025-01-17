@@ -173,33 +173,26 @@ def professional_experiences():
             break
 
     # dates part
-    date_regex = r'^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$'
     while True:
 
         # date start
         while True:
-            try:
-                exp_start = int(input("Saisir le début de l'expérience professionnelle : "))
-                if exp_start or re.match(date_regex, exp_start):
-                    print("Saisie incorrecte!")
-                else:
-                    break
-            except ValueError:
-                print("Saisie incorrecte! Veuillez entrer une année valide.")
+            exp_start = input("Saisir le début de l'expérience professionnelle : ")
+            if not exp_start or not valided_date(exp_start):
+                print("Saisie incorrecte!")
+            else:
+                break
 
         # date end
         while True:
-            try:
-                exp_end = int(input("Saisir la fin de l'expérience professionnelle : "))
-                if exp_end <= 0:
-                    print("Saisie incorrecte, la date doit être un nombre positif!")
-                else:
-                    break
-            except ValueError:
-                print("Saisie incorrecte! Veuillez entrer une année valide.")
+            exp_end = input("Saisir la fin de l'expérience professionnelle : ")
+            if not exp_end or not valided_date(exp_end):
+                print("Saisie incorrecte!")
+            else:
+                break
 
         # error handling dates
-        if not exp_start < exp_end:
+        if not compare_dates(exp_start, exp_end):
             print("Saisie incorrecte, la date de fin d'expérience professionnelle ne peut pas être inférieur à la date de début!")
         else:
             break

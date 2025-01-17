@@ -1,7 +1,3 @@
-from cv_generator import  collect_trainings
+from cv_generator import  collect_trainings, professional_experiences
 
-collect_trainings()
-
-#contact = contact_details()
-#print(contact["first_name"])
-
+professional_experiences()
