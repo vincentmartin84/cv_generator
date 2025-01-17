@@ -133,7 +133,6 @@ def collect_trainings():
     trainings_list = []
     count = 0
 
-
     while count < 3:
         print(f"Formation {count+1}")
         new_training = trainings()
@@ -143,13 +142,13 @@ def collect_trainings():
             more = input("Voulez-vous entrer une autre formation ? oui / non : ").strip().lower()
             if more == "oui":
                 count += 1
-                break  # Sort de la boucle pour ajouter une nouvelle formation
+                break
             elif more == "non":
-                return trainings_list  # Retourne la liste des formations et arrête la collecte
+                return trainings_list
             else:
                 print("Saisie incorrecte ! Tapez : oui ou non : ")
 
-    return trainings_list  # Retourne la liste si on atteint la limite de 3 formations
+    return trainings_list
 
 
 
@@ -213,3 +212,26 @@ def professional_experiences():
         "summary": exp_summary
     }
 
+
+
+#collect professional experiences
+def collect_experiences():
+    experiences_list = []
+    count= 0
+
+    while count < 3 :
+        print(f"Expériences professionnelles {count+1}")
+        new_experience= professional_experiences()
+        experiences_list.append(new_experience)
+
+        while True:
+            more = input("Voulez-vous entrer une autre expérience professionnelle ? tapez oui / non :").strip().lower()
+            if more == "oui":
+                count+=1
+                break
+            elif more == "non":
+                return experiences_list
+            else:
+                print("Saisie incorrecte! tapez oui / non : ")
+
+    return  experiences_list

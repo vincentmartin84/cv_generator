@@ -1,3 +1,3 @@
-from cv_generator import  collect_trainings, professional_experiences
+from cv_generator import  collect_trainings, professional_experiences, collect_experiences
 
-professional_experiences()
+collect_experiences()
