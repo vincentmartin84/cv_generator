@@ -137,8 +137,12 @@ def collect_trainings():
 
         #ask at the user a new training
         more = input("Voulez vous entrer une autre formation?  oui/non").strip().lower()
-        if more != "oui":
+        if more == "oui":
+            continue
+        elif more == 'non':
             break
+        else:
+            print("saisie incorrecte! taper: oui ou non : ")
 
         count+= 1
 
