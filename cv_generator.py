@@ -1,7 +1,10 @@
 import re
 from itertools import count
 
-from functions import valided_names, valided_email, valided_date, compare_dates
+from functions import  valided_names
+from functions import valided_date
+from functions import valided_email
+from functions import compare_dates
 
 
 #contact_details
@@ -138,15 +141,16 @@ def collect_trainings():
         new_training = trainings()
         trainings_list.append(new_training)
 
-        while True:
-            more = input("Voulez-vous entrer une autre formation ? oui / non : ").strip().lower()
-            if more == "oui":
-                count += 1
-                break
-            elif more == "non":
-                return trainings_list
-            else:
-                print("Saisie incorrecte ! Tapez : oui ou non : ")
+        if count < 2 :
+            while True:
+                more = input("Voulez-vous entrer une autre formation ? oui / non : ").strip().lower()
+                if more == "oui":
+                    break
+                elif more == "non":
+                    return trainings_list
+                else:
+                    print("Saisie incorrecte ! Tapez : oui ou non : ")
+        count+=1
 
     return trainings_list
 
@@ -235,3 +239,81 @@ def collect_experiences():
                 print("Saisie incorrecte! tapez oui / non : ")
 
     return  experiences_list
+
+#technical skills
+def technical_skills():
+    while True:
+        skills= input("Saisir vos compétences techiques, chaque compétences doit être séparée par une virgule : ").strip()
+        if not skills:
+            print("Saisie incorrecte!")
+        else:
+            break
+
+    return skills
+
+#professionnal skills
+def professionnal_skills():
+    while True:
+        pro_skills= input("Saisir vos compétences professionnelles séparées par une virgule : ")
+        if not pro_skills:
+            print("Saisie incorrecte!")
+        else:
+            break
+
+    return pro_skills
+
+#personal projects
+def personal_project():
+
+    #title
+    while True:
+        project_title= input("Saisir le titre du projet personnel : ").strip()
+        if not project_title:
+            print("Saisie incorrecte!")
+        else:
+            break
+
+    #summary
+    while True:
+        project_summary = input("Saisir une explication de votre projet : ").strip()
+        if not project_summary:
+            print("Saisie incorrecte!")
+        else:
+            break
+
+    #link
+    while True:
+        project_link= input("Saisir un lien vers votre projet comme une URL : ")
+        if not project_link or project_link:
+            break
+
+    return {
+        "title": project_title,
+        "summary": project_summary,
+        "link": project_link
+    }
+
+
+#collect projects
+def collect_projects():
+    projects_list = []
+    count = 0
+
+    while count < 3:
+        print(f"Projet personnel {count + 1}")
+
+        new_project = personal_project()
+        projects_list.append(new_project)
+
+        if count < 2:
+            while True:
+                more = input("Voulez-vous ajouter un projet personnel? tapez oui / non : ").strip().lower()
+                if more == "oui":
+                    break
+                elif more == "non":
+                    return projects_list
+                else:
+                    print("Saisie incorrecte! tapez oui / non : ")
+        count += 1
+
+    return projects_list
