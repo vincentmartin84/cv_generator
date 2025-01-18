@@ -79,7 +79,7 @@ def cv_title():
             break
 
     return {
-        "cv_title": title
+        "title": title
     }
 
 #trainings
@@ -227,23 +227,23 @@ def collect_experiences():
         print(f"Expériences professionnelles {count+1}")
         new_experience= professional_experiences()
         experiences_list.append(new_experience)
+        if count< 2 :
+            while True:
+                more = input("Voulez-vous entrer une autre expérience professionnelle ? tapez oui / non :").strip().lower()
+                if more == "oui":
+                    break
+                elif more == "non":
+                    return experiences_list
+                else:
+                    print("Saisie incorrecte! tapez oui / non : ")
 
-        while True:
-            more = input("Voulez-vous entrer une autre expérience professionnelle ? tapez oui / non :").strip().lower()
-            if more == "oui":
-                count+=1
-                break
-            elif more == "non":
-                return experiences_list
-            else:
-                print("Saisie incorrecte! tapez oui / non : ")
-
+        count+=1
     return  experiences_list
 
 #technical skills
 def technical_skills():
     while True:
-        skills= input("Saisir vos compétences techiques, chaque compétences doit être séparée par une virgule : ").strip()
+        skills= input("Saisir vos compétences techniques, chaque compétences doit être séparée par une virgule : ").strip()
         if not skills:
             print("Saisie incorrecte!")
         else:
