@@ -5,8 +5,14 @@ from cv_generator import  collect_experiences
 from cv_generator import professionnal_skills
 from cv_generator import personal_project
 from cv_generator import  collect_projects
+from file_generator import create_file
+from file_generator import  write_contact_details
+from file_generator import  save_file
 
-
+cv= create_file()
+contact = contact_details()
+ctc_details= write_contact_details(cv, contact)
+save_file(cv, 'mon_cv')
 
 #display data
 """ 
