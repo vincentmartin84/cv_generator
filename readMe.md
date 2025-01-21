@@ -25,7 +25,7 @@ python-docx
 ##Installation du projet
 
 ###Cloner le projet
-git clone
+git clone https://github.com/vincentmartin84/cv_generator
 
 ###Vérifier que Python3 est installé
 python --version
