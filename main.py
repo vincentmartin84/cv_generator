@@ -14,11 +14,15 @@ from file_generator import pro_experiences_part
 from file_generator import  tech_skills
 from file_generator import pro_skills
 from file_generator import perso_projects
+from file_generator import file_name
+
+try :
+    #create new file
+    cv= create_file()
+except Exception as E :
+    print(f"Error: {E}")
 
 
-#create new file
-cv= create_file()
-"""
 #contact details
 contact = contact_details()
 
@@ -27,12 +31,12 @@ title_cv= cv_title()
  
 #header cv
 header= header_cv(cv, contact,title_cv)
-"""
+
 
 #trainings part
 trn_list= collect_trainings()
 training_part(cv, trn_list)
-"""
+
 #professionnal experiences part
 experiences= collect_experiences()
 pro_experiences_part(cv, experiences)
@@ -50,6 +54,13 @@ pro_skills(cv,prf_skills)
 prj_perso = collect_projects()
 perso_projects(cv, prj_perso)
 
-"""
+#file name
+name_file = file_name()
+
 #save file
-save_file(cv, "my_cv")
+
+
+try :
+    save_file(cv,name_file)
+except Exception as E :
+    print(f"Error: {E}")

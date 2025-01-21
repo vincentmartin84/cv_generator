@@ -1,8 +1,9 @@
+import  os
 from docx import  Document
 from docx.shared import Pt
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.style import WD_STYLE_TYPE
-
+from functions import valided_file_name
 
 #create new file
 def create_file():
@@ -11,11 +12,21 @@ def create_file():
 
 #save the file
 def save_file(document, name_file):
-    document.save(name_file )
+
+    try:
+        save_doc= document.save(name_file )
+        place= os.getcwd()
+        print(f"Votre cv : {name_file} a bien été enregistré!")
+        print(f"Emplacement du fichier: {place}")
+    except Exception as E:
+        print(f"Error:{e}")
+
+
+#create new file
+cv= create_file()
 
 
 #create header Cv
-
 def header_cv(document, contact, title):
 
     table = document.add_table(rows=1, cols=2)
@@ -34,8 +45,10 @@ def header_cv(document, contact, title):
 
     para_residence=  cell_contact.add_paragraph()
     run_residence= para_residence.add_run("Domicile: " + contact["residence"])
-    para_mention= cell_contact.add_paragraph()
-    run_mention = para_mention.add_run(contact["mention"])
+
+    if contact["mention"]:
+        para_mention= cell_contact.add_paragraph()
+        run_mention = para_mention.add_run(contact["mention"])
 
     # Write data in cell title
     para_title= cell_title.add_paragraph()
@@ -54,6 +67,7 @@ def training_part(document, training):
     #training part title
     training_title= document.add_heading("Formations", level=2)
 
+
     #write trainings
     for i, trn in enumerate(training,1):
         para_trainig= document.add_paragraph(style='List Bullet')
@@ -62,16 +76,19 @@ def training_part(document, training):
         run_date= para_trainig.add_run(trn["date_start"] + ":" + trn["date_end"])
 
         #styles tranings
-        para_trainig.styles = "List Bullet"
 
 #professionnal experiences
 def pro_experiences_part(document, experience):
     #experiences title
     exp_title= document.add_heading("Expériences professionnelles : ", level=2)
 
-    #weite experiences
+    #write experiences
     for i, exp in enumerate(experience,1):
-        document.add_paragraph(exp["title"] + " " + exp["company"] + " " + exp["date_start"] + ":" + exp["date_end"] + ":" + exp["summary"])
+        para_exp= document.add_paragraph(style='List Bullet')
+        run_title= para_exp.add_run(exp["title"] + " ")
+        run_company= para_exp.add_run(exp["company"] + " ")
+        run_date= para_exp.add_run(exp["date_start"] + " " + exp["date_end"] + " : ")
+        run_summary= para_exp.add_run(exp["summary"])
 
 
 #technical skills
@@ -79,8 +96,9 @@ def tech_skills(document, skills):
 
     #technical skills title
     skills_title = document.add_heading("Compétences techniques", level=2)
+
     #write skills
-    document.add_paragraph(skills)
+    para_skills= document.add_paragraph(skills)
 
 #write professionnal skills
 def pro_skills(document, skills):
@@ -88,8 +106,9 @@ def pro_skills(document, skills):
     #professionnal skills title
     pro_title= document.add_heading("Compétences professionnelles", level=2)
 
+
     #write professionnal skills
-    document.add_paragraph(skills)
+    para_skills= document.add_paragraph(skills)
 
 
 
@@ -97,11 +116,23 @@ def pro_skills(document, skills):
 def perso_projects(document, projects):
 
     #personal project title
-    document.add_heading("Projets personnels", level=2)
+    project_title = document.add_heading("Projets personnels", level=2)
 
     #write personal projects
     for i, prj in enumerate(projects,1):
+        para_project = document.add_paragraph(style='List Bullet')
+        run_title= para_project.add_run(prj["title"] + " : ")
+        run_summary= para_project.add_run(prj["summary"] + "\n")
+        run_link= para_project.add_run(prj["link"])
 
 
-        project_label= document.add_paragraph(prj["title"]  + ": " +  prj["summary"])
-        project_link = document.add_paragraph(prj["link"])
+#file name
+def file_name():
+
+    print("\n Enregistrement du fichier \n")
+
+    file_name= input("Saisir le nomdu fichier : ")
+
+    if not valided_file_name(file_name):
+        print("Le nom du fichier est incorrecte il ne doit contenir que des lettres, des chiffres et les caractères suivants: _ - ")
+    return file_name

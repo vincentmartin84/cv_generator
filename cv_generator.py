@@ -10,6 +10,8 @@ from functions import compare_dates
 #contact_details
 def contact_details():
 
+    print("\n Informations personnelles \n ")
+
     #first_name
     while True:
         first_name=input("Saisir votre prénom :").strip()
@@ -44,7 +46,7 @@ def contact_details():
 
     #residence
     while True:
-        residence= input("Saisir votre lieux de residence : ").strip()
+        residence= input("Saisir votre lieux de résidence : ").strip()
         if not residence or not residence.isalpha():
             print("Saisie incorrecte!")
         else:
@@ -53,10 +55,9 @@ def contact_details():
     #mention
     while True:
         mention = input("Saisir une mention si necessaire : ").strip()
-        if not mention.isalpha():
-            print("Saisie incorrecte!")
-        else:
+        if mention or not mention:
             break
+
 
     return {
         "first_name": first_name,
@@ -69,6 +70,7 @@ def contact_details():
 
 #title of the CV
 def cv_title():
+    print("\n Titre du CV \n ")
 
     #title
     while True:
@@ -84,6 +86,7 @@ def cv_title():
 
 #trainings
 def trainings():
+    print("\n Vos formations (3 maximum) \n ")
 
     #training's title
     while True:
@@ -158,6 +161,7 @@ def collect_trainings():
 
 #professional experiences
 def professional_experiences():
+    print("\nExpériences professionnelles (3 maximum) \n ")
 
     # title
     while True:
@@ -242,6 +246,9 @@ def collect_experiences():
 
 #technical skills
 def technical_skills():
+
+    print("\n Compétences techniques \n ")
+
     while True:
         skills= input("Saisir vos compétences techniques, chaque compétences doit être séparée par une virgule : ").strip()
         if not skills:
@@ -253,6 +260,8 @@ def technical_skills():
 
 #professionnal skills
 def professionnal_skills():
+
+    print("\n Comptétences professionnelles \n ")
     while True:
         pro_skills= input("Saisir vos compétences professionnelles séparées par une virgule : ")
         if not pro_skills:
@@ -264,6 +273,8 @@ def professionnal_skills():
 
 #personal projects
 def personal_project():
+
+    print("\n Projets personnels (3 maximum) \n ")
 
     #title
     while True:

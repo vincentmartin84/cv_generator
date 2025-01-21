@@ -1,3 +1,4 @@
+import curses.ascii
 import re
 from datetime import datetime
 #valided names
@@ -29,3 +30,11 @@ def compare_dates(start_date, end_date):
     start_date_obj = datetime.strptime(start_date, "%d/%m/%Y")
     end_date_obj = datetime.strptime(end_date, "%d/%m/%Y")
     return start_date_obj < end_date_obj
+
+#valided file name
+def valided_file_name(file):
+    if all(c.isalpha() or c.isdigit() or c == "_" or c == "-" for c in file):
+        return True
+    else:
+        return False
+
