@@ -24,15 +24,15 @@ contact = contact_details()
 
 #title of CV
 title_cv= cv_title()
-
+ 
 #header cv
 header= header_cv(cv, contact,title_cv)
-
+"""
 
 #trainings part
 trn_list= collect_trainings()
 training_part(cv, trn_list)
-
+"""
 #professionnal experiences part
 experiences= collect_experiences()
 pro_experiences_part(cv, experiences)
@@ -44,12 +44,12 @@ tech_skills(cv, tch_skills)
 #professionnal skills
 prf_skills = professionnal_skills()
 pro_skills(cv,prf_skills)
-"""
+
 
 #personal project part
 prj_perso = collect_projects()
 perso_projects(cv, prj_perso)
 
-
+"""
 #save file
 save_file(cv, "my_cv")
